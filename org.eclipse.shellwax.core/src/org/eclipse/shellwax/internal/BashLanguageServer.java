@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wildwebdeveloper.embedder.node.NodeJSManager;
 
 public class BashLanguageServer extends ProcessStreamConnectionProvider {
-	private static final String LS_VERSION = "5.3.3";
+	private static final String LS_VERSION = "5.4.0";
 	private static final String LOCAL_PATH = "/.local/share/shellwax/"+LS_VERSION;
 	private static final String LS_MAIN = "/node_modules/.bin/bash-language-server";
 	private static final String LS_MAIN_WIN32 = "/bash-language-server";
