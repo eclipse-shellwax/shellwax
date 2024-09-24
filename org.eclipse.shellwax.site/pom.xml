@@ -26,6 +26,7 @@
 									<goal>sign-p2-artifacts</goal>
 								</goals>
 								<configuration>
+									<signer>bc</signer>
 									<keyname>729D9237ED2F6658</keyname>
 								</configuration>
 							</execution>
