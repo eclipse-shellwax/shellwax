@@ -13,9 +13,8 @@ kind: Pod
 spec:
   containers:
   - name: container
-    image: docker.io/akurtakov/fedora-gtk3-mutter-java-node:f39
+    image: docker.io/akurtakov/fedora-gtk3-mutter-java-node:f41-node22
     tty: true
-    command: [ "uid_entrypoint", "cat" ]
     resources:
       limits:
         memory: "2Gi"
