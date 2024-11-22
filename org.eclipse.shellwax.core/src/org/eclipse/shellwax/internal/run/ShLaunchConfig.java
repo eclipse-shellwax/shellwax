@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019 Red Hat Inc. and others.
+ * Copyright (c) 2019, 2024 Red Hat Inc. and others.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -15,7 +15,6 @@ package org.eclipse.shellwax.internal.run;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -49,14 +48,14 @@ public class ShLaunchConfig extends LaunchConfigurationDelegate {
 			workDir = path.toPortableString();
 		}
 		String executable = "sh";
-		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+        if (Platform.OS.isWindows()) {
 			executable = "bash.exe";
 			String drive = Character.toString(shellPath.charAt(0));
 			shellPath = "/mnt/"+drive.toLowerCase()+"/"+shellPath.substring(2);
 		}
 		command.add(executable);
 		command.add(shellPath);
-		command.addAll(Arrays.asList(shellParams));
+        command.addAll(List.of(shellParams));
 		try {
 			ProcessBuilder pb = new ProcessBuilder(command.toArray(String[]::new));
 			pb.directory(new File(workDir));

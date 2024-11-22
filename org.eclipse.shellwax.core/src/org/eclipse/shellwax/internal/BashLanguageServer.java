@@ -37,7 +37,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 
 	private static String getLsPath() {
 		String lsPath = System.getProperty("user.home") + LOCAL_PATH;
-		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+        if (Platform.OS.isWindows()) {
 			lsPath = lsPath + LS_MAIN_WIN32 + ".cmd";
 		} else {
 			lsPath = lsPath + LS_MAIN;
@@ -61,7 +61,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 				installLS();
 			}
 			String lsPath = getLsPath();
-			if (Platform.getOS().equals(Platform.OS_WIN32)) {
+            if (Platform.OS.isWindows()) {
 				commands.add("cmd");
 				commands.add("/c");
 			} else {
@@ -105,7 +105,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 				if (npmPath == null) {
 					npmPath = getExecLocation("npm");
 				}
-				if (Platform.getOS().equals(Platform.OS_WIN32)) {
+                if (Platform.OS.isWindows()) {
 					npmPath = npmPath+".cmd";
 				}
 				if (npmPath != null) {
@@ -127,7 +127,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 	private static String getExecLocation(String exec) {
 		String res = "/path/to/" + exec;
 		String[] command = { "/bin/bash", "-c", "which " + exec };
-		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+        if (Platform.OS.isWindows()) {
 			command = new String[] { "cmd", "/c", "where " + exec };
 		}
 		try {
@@ -138,7 +138,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 		}
 
 		// Try default install path as last resort
-		if (res == null && Platform.getOS().equals(Platform.OS_MACOSX)) {
+        if (res == null && Platform.OS.isMac()) {
 			res = "/usr/local/bin/" + exec;
 		}
 
