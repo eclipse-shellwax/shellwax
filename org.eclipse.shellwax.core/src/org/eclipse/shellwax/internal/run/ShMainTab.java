@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019 Red Hat Inc. and others.
+ * Copyright (c) 2019, 2024 Red Hat Inc. and others.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -15,7 +15,7 @@ package org.eclipse.shellwax.internal.run;
 import java.io.File;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -95,7 +95,7 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 			this.argumentsText.setText(configuration.getAttribute(ShLaunchConfig.ARGUMENTS, "")); //$NON-NLS-1$
 			this.workingDirectoryText.setText(configuration.getAttribute(DebugPlugin.ATTR_WORKING_DIRECTORY, "")); //$NON-NLS-1$
 		} catch (CoreException e) {
-			Platform.getLog(Platform.getBundle("org.eclipse.shellwax.core")).log(e.getStatus());
+            ILog.get().log(e.getStatus());
 		}
 	}
 
