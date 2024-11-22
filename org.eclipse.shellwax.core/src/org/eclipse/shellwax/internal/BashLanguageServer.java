@@ -12,10 +12,8 @@
  *******************************************************************************/
 package org.eclipse.shellwax.internal;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -132,11 +130,9 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 		if (Platform.getOS().equals(Platform.OS_WIN32)) {
 			command = new String[] { "cmd", "/c", "where " + exec };
 		}
-		BufferedReader reader = null;
 		try {
 			Process p = Runtime.getRuntime().exec(command);
-			reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			res = reader.readLine();
+            res = p.inputReader().readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
