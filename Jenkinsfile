@@ -23,7 +23,6 @@ spec:
         memory: "2Gi"
         cpu: "1"
   - name: jnlp
-    image: 'eclipsecbi/jenkins-jnlp-agent'
     volumeMounts:
     - mountPath: /home/jenkins/.ssh
       name: volume-known-hosts
