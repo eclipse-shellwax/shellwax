@@ -30,18 +30,14 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 	private static final String LS_VERSION = "5.4.3";
 	private static final String LOCAL_PATH = "/.local/share/shellwax/"+LS_VERSION;
 	private static final String LS_MAIN = "/node_modules/.bin/bash-language-server";
-	private static final String LS_MAIN_WIN32 = "/bash-language-server";
 
 	private static boolean alreadyWarned;
 	private static CompletableFuture<Void> initializeFuture;
 
 	private static String getLsPath() {
-		String lsPath = System.getProperty("user.home") + LOCAL_PATH;
-        if (Platform.OS.isWindows()) {
-			lsPath = lsPath + LS_MAIN_WIN32 + ".cmd";
-		} else {
-			lsPath = lsPath + LS_MAIN;
-		}	
+		String lsPath = System.getProperty("user.home") + LOCAL_PATH + LS_MAIN;
+		if (Platform.OS.isWindows())
+			lsPath = lsPath.replace('/', '\\');
 		return lsPath;
 	}
 
@@ -61,15 +57,16 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 				installLS();
 			}
 			String lsPath = getLsPath();
-            if (Platform.OS.isWindows()) {
+			if (Platform.OS.isWindows()) {
 				commands.add("cmd");
 				commands.add("/c");
+				// quoting lsPath to support spaces in username
+				commands.add("\"\"" + lsPath + "\" start\"");
 			} else {
 				commands.add(nodePath);
-				
+				commands.add(lsPath);
+				commands.add("start");
 			}
-			commands.add(lsPath);
-			commands.add("start");
 			setCommands(commands);
 			setWorkingDirectory(System.getProperty("user.dir"));
 		}
@@ -84,10 +81,10 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 	}
 
 	/**
-	 * Creates and asynchronously runs a runnable for the Bash Language Server module 
-	 * installation if it's not yet created. Returns the CompletableFuture object to follow the 
+	 * Creates and asynchronously runs a runnable for the Bash Language Server module
+	 * installation if it's not yet created. Returns the CompletableFuture object to follow the
 	 * installation runnable that allows at least to wait for the finishing of the installation.
-	 * 
+	 *
 	 * @return CompletableFuture for the installation  runnable
 	 */
 	private synchronized CompletableFuture<Void> installLS() {
@@ -105,13 +102,14 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 				if (npmPath == null) {
 					npmPath = getExecLocation("npm");
 				}
-                if (Platform.OS.isWindows()) {
+				if (Platform.OS.isWindows() && !npmPath.endsWith(".cmd")) {
 					npmPath = npmPath+".cmd";
 				}
 				if (npmPath != null) {
 					List<String> commands = List.of(npmPath, "install","--prefix=.","bash-language-server@"+LS_VERSION);
 					ProcessBuilder pb = new ProcessBuilder(commands);
 					pb.directory(installLocation);
+					pb.inheritIO(); // Redirects stdout and stderr to System.out
 					try {
 						Process ps = pb.start();
 						ps.waitFor();
@@ -132,7 +130,7 @@ public class BashLanguageServer extends ProcessStreamConnectionProvider {
 		}
 		try {
 			Process p = Runtime.getRuntime().exec(command);
-            res = p.inputReader().readLine();
+			res = p.inputReader().readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
