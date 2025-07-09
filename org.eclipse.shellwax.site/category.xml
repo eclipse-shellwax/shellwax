@@ -3,9 +3,6 @@
    <feature url="features/org.eclipse.shellwax.feature_0.0.0.jar" id="org.eclipse.shellwax.feature" version="0.0.0">
       <category name="org.eclipse.shellwax"/>
    </feature>
-   <feature url="features/org.eclipse.shellwax.feature.source_0.0.0.jar" id="org.eclipse.shellwax.feature.source" version="0.0.0">
-      <category name="org.eclipse.shellwax Developer Resources"/>
-   </feature>
    <repository-reference location="https://download.eclipse.org/tm4e/releases/latest/" enabled="true" />
    <repository-reference location="https://download.eclipse.org/wildwebdeveloper/releases/latest/" enabled="true" />
 </site>
