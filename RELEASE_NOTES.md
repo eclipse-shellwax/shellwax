@@ -19,7 +19,7 @@ This page describes the noteworthy improvements provided by each release of Ecli
 * Format command is functional when `shfmt` is installed locally.
 
 ### Bash LS update ###
-* Bash LSP dependency has been updated to version 5.4.0 . See [changelog](https://github.com/bash-lsp/bash-language-server/blob/main/server/CHANGELOG.md#5.4.0 ) for details.
+* Bash LSP dependency has been updated to version 5.4.3 . See [changelog](https://github.com/bash-lsp/bash-language-server/blob/main/server/CHANGELOG.md#5.4.3 ) for details.
 
 
 ## 1.2.3
