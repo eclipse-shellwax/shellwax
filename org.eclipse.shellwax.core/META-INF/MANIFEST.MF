@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ShellWax 
+Bundle-RequiredExecutionEnvironment: JavaSE-25
 Bundle-SymbolicName: org.eclipse.shellwax.core;singleton:=true
-Bundle-Version: 1.3.0.qualifier
+Bundle-Version: 1.4.0.qualifier
 Bundle-Vendor: Eclipse.org - ShellWax
 Automatic-Module-Name: org.eclipse.shellwax.core
-Bundle-RequiredExecutionEnvironment: JavaSE-21
 Eclipse-BundleShape: dir
 Require-Bundle: org.eclipse.ui.genericeditor,
  org.eclipse.tm4e.ui;bundle-version="0.12.0",
