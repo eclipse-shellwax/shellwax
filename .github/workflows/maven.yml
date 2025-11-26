@@ -35,7 +35,7 @@ jobs:
     - name: Build with Maven
       run: mvn -U -V -ntp -e clean verify --file pom.xml
     - name: SCP artifacts to download.eclipse.org
-      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'eclipse-shellwax/shellwax'
       uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1
       with:
         host: projects-storage.eclipse.org
