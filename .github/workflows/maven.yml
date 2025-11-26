@@ -43,5 +43,4 @@ jobs:
         key: ${{ secrets.SCP_KEY }}
         passphrase: ${{ secrets.SCP_PASSPHRASE }}
         source: "org.eclipse.shellwax.site/target/repository/**"
-        target: "/home/data/httpd/download.eclipse.org/shellwax/snapshots/"
-        strip_components: 2
+        target: "/home/data/httpd/download.eclipse.org/shellwax/ghasnapshots/"
