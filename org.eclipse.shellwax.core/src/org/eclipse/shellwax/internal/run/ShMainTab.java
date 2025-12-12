@@ -47,7 +47,7 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault()
 				.getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
 		decoration.setImage(fieldDecoration.getImage());
-		this.programPathText.addModifyListener(event -> {
+		this.programPathText.addModifyListener(_ -> {
 			setDirty(true);
 			File file = new File(programPathText.getText());
 			if (!file.isFile()) {
@@ -69,14 +69,14 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 		new Label(resComposite, SWT.NONE).setText("Arguments");
 		this.argumentsText = new Text(resComposite, SWT.BORDER);
 		this.argumentsText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		this.argumentsText.addModifyListener(e -> {
+		this.argumentsText.addModifyListener(_ -> {
 			setDirty(true);
 			updateLaunchConfigurationDialog();
 		});
 		new Label(resComposite, SWT.NONE).setText("Working directory");
 		this.workingDirectoryText = new Text(resComposite, SWT.BORDER);
 		this.workingDirectoryText.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
-		this.workingDirectoryText.addModifyListener(e -> {
+		this.workingDirectoryText.addModifyListener(_ -> {
 			setDirty(true);
 			updateLaunchConfigurationDialog();
 		});
