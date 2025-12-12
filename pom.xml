@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<tycho.version>5.0.1-SNAPSHOT</tycho.version>
+		<tycho.version>5.0.2-SNAPSHOT</tycho.version>
 		<tycho.scmUrl>scm:git:https://github.com/eclipse-shellwax/shellwax</tycho.scmUrl>
 		<tycho.test.platformArgs />
 		<tycho.test.jvmArgs>-Xmx512m</tycho.test.jvmArgs>
@@ -122,9 +122,6 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho.version}</version>
-					<configuration>
-						<compilerId>javac</compilerId>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
