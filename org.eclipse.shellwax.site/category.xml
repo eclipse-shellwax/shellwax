@@ -5,4 +5,5 @@
    </feature>
    <repository-reference location="https://download.eclipse.org/tm4e/releases/latest/" enabled="true" />
    <repository-reference location="https://download.eclipse.org/wildwebdeveloper/releases/latest/" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/justj/jres/25/updates/release/latest/" enabled="true" />
 </site>
