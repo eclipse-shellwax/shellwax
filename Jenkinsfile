@@ -8,7 +8,7 @@ pipeline {
 		label 'ubuntu-latest'
 	}
 	tools {
-		maven 'apache-maven-latest'
+		maven 'apache-maven-3.9.12'
 		jdk 'temurin-jdk25-latest'
 	}
 	stages {
