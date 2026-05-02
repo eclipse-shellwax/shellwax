@@ -129,8 +129,17 @@
      <icon
      contentType="org.eclipse.shellwax.sh"
      icon="icons/sh.png" />
-     <icon
-     contentType="org.eclipse.shellwax.shebang"
-     icon="icons/sh.png" />
+   </extension>
+   <extension point="org.eclipse.ui.decorators">
+      <decorator
+            class="org.eclipse.shellwax.internal.ShebangDecorator"
+            id="org.eclipse.shellwax.shebangDecorator"
+            label="Shell Script (Shebang)"
+            lightweight="false"
+            state="true">
+         <enablement>
+            <objectClass name="org.eclipse.core.resources.IFile"/>
+         </enablement>
+      </decorator>
    </extension>
 </plugin>
