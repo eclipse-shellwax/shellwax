@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2024 Red Hat Inc. and others.
+ * Copyright (c) 2019, 2026 Red Hat Inc. and others.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -24,8 +24,10 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -35,6 +37,7 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 	private Text programPathText;
 	private Text argumentsText;
 	private Text workingDirectoryText;
+	private Button xtraceButton;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -80,6 +83,12 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 			setDirty(true);
 			updateLaunchConfigurationDialog();
 		});
+		this.xtraceButton = new Button(resComposite, SWT.CHECK);
+		this.xtraceButton.setText("Enable -x (trace commands)");
+		this.xtraceButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(_ -> {
+			setDirty(true);
+			updateLaunchConfigurationDialog();
+		}));
 		setControl(resComposite);
 	}
 
@@ -94,6 +103,7 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 			this.programPathText.setText(configuration.getAttribute(ShLaunchConfig.PROGRAM, "")); //$NON-NLS-1$
 			this.argumentsText.setText(configuration.getAttribute(ShLaunchConfig.ARGUMENTS, "")); //$NON-NLS-1$
 			this.workingDirectoryText.setText(configuration.getAttribute(DebugPlugin.ATTR_WORKING_DIRECTORY, "")); //$NON-NLS-1$
+			this.xtraceButton.setSelection(configuration.getAttribute(ShLaunchConfig.XTRACE, false));
 		} catch (CoreException e) {
             ILog.get().log(e.getStatus());
 		}
@@ -104,6 +114,7 @@ public class ShMainTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(ShLaunchConfig.PROGRAM, this.programPathText.getText());
 		configuration.setAttribute(ShLaunchConfig.ARGUMENTS, this.argumentsText.getText());
 		configuration.setAttribute(DebugPlugin.ATTR_WORKING_DIRECTORY, this.workingDirectoryText.getText());
+		configuration.setAttribute(ShLaunchConfig.XTRACE, this.xtraceButton.getSelection());
 	}
 
 	@Override
