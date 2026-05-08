@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2024 Red Hat Inc. and others.
+ * Copyright (c) 2019, 2026 Red Hat Inc. and others.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -33,6 +33,7 @@ public class ShLaunchConfig extends LaunchConfigurationDelegate {
 	public static final String ID = "org.eclipse.shellwax.shlaunchonfigtype";
 	public static final String PROGRAM = "org.eclipse.shellwax.launch.program";
 	public static final String ARGUMENTS = "org.eclipse.shellwax.launch.arguments";
+	public static final String XTRACE = "org.eclipse.shellwax.launch.xtrace";
 
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
@@ -54,11 +55,20 @@ public class ShLaunchConfig extends LaunchConfigurationDelegate {
 			shellPath = "/mnt/"+drive.toLowerCase()+"/"+shellPath.substring(2);
 		}
 		command.add(executable);
+		boolean xtrace = wc.getAttribute(XTRACE, false);
+		if (xtrace) {
+			command.add("-x"); //$NON-NLS-1$
+		}
 		command.add(shellPath);
         command.addAll(List.of(shellParams));
 		try {
 			ProcessBuilder pb = new ProcessBuilder(command.toArray(String[]::new));
 			pb.directory(new File(workDir));
+			if (xtrace) {
+				// Merge stderr into stdout so xtrace lines and script output are interleaved
+				// in arrival order, matching real terminal behaviour.
+				pb.redirectErrorStream(true);
+			}
 			final Process p = pb.start();
 			DebugPlugin.newProcess(launch, p, shellPath);
 		} catch (IOException ex) {
