@@ -98,7 +98,7 @@ public class ShLaunchShortcut implements ILaunchShortcut2 {
 			if (existing.length != 0) {
 				return existing;
 			}
-			String configName = launchManager.generateLaunchConfigurationName(resource.toString());
+			String configName = launchManager.generateLaunchConfigurationName(resource.getName());
 			ILaunchConfigurationWorkingCopy wc = configType.newInstance(null, configName);
 			wc.setAttribute(ShLaunchConfig.PROGRAM, resource.getLocation().toString());
 			wc.setAttribute(DebugPlugin.ATTR_WORKING_DIRECTORY,
