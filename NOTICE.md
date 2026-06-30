@@ -1,4 +1,4 @@
-# Notices for Eclipse Dash
+# Notices for Eclipse ShellWax
 
 This content is produced and maintained by the Eclipse ShellWax project.
 
